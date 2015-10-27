@@ -23,3 +23,20 @@ func NewField() *Field {
 		Type: "text",
 	}
 }
+
+func (f Field) output() string {
+	switch f.Type {
+	case "textarea":
+		return f.outputTextArea()
+	}
+
+	return f.outputText()
+}
+
+func (f Field) outputText() string {
+	return fmt.Sprintf("<input type=\"%[1]s\" name=\"%[2]s\" id=\"%[2]s\" value=\"%[3]s\" />", f.Type, f.Name, f.Value)
+}
+
+func (f Field) outputTextArea() string {
+	return fmt.Sprintf("<textarea name=\"%[1]s\" id=\"%[1]s\">%[2]s</textarea>", f.Name, f.Value)
+}
