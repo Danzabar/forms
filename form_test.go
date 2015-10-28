@@ -13,6 +13,6 @@ func TestFormTags(t *testing.T) {
 	oTag := form.open()
 	cTag := form.close()
 
-	assert.Equal(t, oTag, "<form method=\"GET\" action=\"/test/uri\">")
-	assert.Equal(t, cTag, "</form>")
+	assert.Equal(t, "<form method=\"GET\" action=\"/test/uri\">", oTag)
+	assert.Equal(t, "</form>", cTag)
 }

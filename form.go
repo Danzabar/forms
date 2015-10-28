@@ -13,6 +13,8 @@ type Form struct {
 	Action string
 	// The HTTP Method
 	Method string
+	// A list of fields
+	Fields []Field
 }
 
 func NewForm() *Form {

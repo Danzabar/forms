@@ -14,3 +14,13 @@ func TestFieldOutputText(t *testing.T) {
 
 	assert.Equal(t, tag, "<input type=\"text\" name=\"foo\" id=\"foo\" value=\"\" />")
 }
+
+func TestFieldOutputTextArea(t *testing.T) {
+	field := NewField()
+	field.Name = "foo"
+	field.Type = "textarea"
+
+	tag := field.output()
+
+	assert.Equal(t, tag, "<textarea name=\"foo\" id=\"foo\"></textarea>")
+}
