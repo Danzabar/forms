@@ -33,6 +33,10 @@ func (f Field) output() string {
 	return f.outputText()
 }
 
+func (f *Field) addError(err string) {
+	f.Errors = append(f.Errors, err)
+}
+
 func (f Field) outputText() string {
 	return fmt.Sprintf("<input type=\"%[1]s\" name=\"%[2]s\" id=\"%[2]s\" value=\"%[3]s\" />", f.Type, f.Name, f.Value)
 }

@@ -32,6 +32,6 @@ func (suite *FormTestSuite) TestFormTags() {
 	assert.Equal(suite.T(), "</form>", cTag)
 }
 
-func TestFormTagsTestSuite(t *testing.T) {
+func TestRunnerTestSuite(t *testing.T) {
 	suite.Run(t, new(FormTestSuite))
 }

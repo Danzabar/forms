@@ -12,7 +12,7 @@ func TestFieldOutputText(t *testing.T) {
 
 	tag := field.output()
 
-	assert.Equal(t, tag, "<input type=\"text\" name=\"foo\" id=\"foo\" value=\"\" />")
+	assert.Equal(t, "<input type=\"text\" name=\"foo\" id=\"foo\" value=\"\" />", tag)
 }
 
 func TestFieldOutputTextArea(t *testing.T) {
@@ -22,5 +22,12 @@ func TestFieldOutputTextArea(t *testing.T) {
 
 	tag := field.output()
 
-	assert.Equal(t, tag, "<textarea name=\"foo\" id=\"foo\"></textarea>")
+	assert.Equal(t, "<textarea name=\"foo\" id=\"foo\"></textarea>", tag)
+}
+
+func TestFieldAddError(t *testing.T) {
+	field := NewField()
+	field.addError("A test error")
+
+	assert.Equal(t, 1, len(field.Errors))
 }

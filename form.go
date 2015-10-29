@@ -15,7 +15,7 @@ type Form struct {
 	// The HTTP Method
 	Method string
 	// A list of fields
-	Fields []Field
+	Fields []*Field
 	// The current request
 	Request *http.Request
 }
