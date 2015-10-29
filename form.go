@@ -2,6 +2,7 @@ package forms
 
 import (
 	"fmt"
+	"net/http"
 )
 
 type Form struct {
@@ -15,14 +16,17 @@ type Form struct {
 	Method string
 	// A list of fields
 	Fields []Field
+	// The current request
+	Request *http.Request
 }
 
-func NewForm() *Form {
+func NewForm(r *http.Request) *Form {
 	return &Form{
 		Name:        "Form",
 		Description: "",
 		Action:      "",
 		Method:      "POST",
+		Request:     r,
 	}
 }
 
