@@ -52,6 +52,11 @@ func (f *Field) addError(err string) {
 	f.Errors = append(f.Errors, err)
 }
 
+// Adds a validation item to the field
+func (f *Field) addValidation(validation Validation) {
+	f.Rules = append(f.Rules, validation)
+}
+
 // Runs all the validation associated with this field
 func (f *Field) validate() {
 	for _, rule := range f.Rules {

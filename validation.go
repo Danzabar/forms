@@ -22,6 +22,7 @@ type LengthValidation struct {
 	Len   int
 }
 
+// Methods for the Required validation struct
 func (r *Required) validate() {
 	// We only follow the happy path here because go sets Valid as
 	// its null value (false)
@@ -42,8 +43,21 @@ func (r Required) isValid() bool {
 	return r.Valid
 }
 
+// Methods for the Length validation struct
 func (l *LengthValidation) validate() {
 	if len(l.Value) == l.Len {
 		l.Valid = true
 	}
+}
+
+func (l *LengthValidation) setValue(val string) {
+	l.Value = val
+}
+
+func (l LengthValidation) getErr() string {
+	return l.Err
+}
+
+func (l LengthValidation) isValid() bool {
+	return l.Valid
 }

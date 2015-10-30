@@ -68,7 +68,7 @@ func TestFieldAddError(t *testing.T) {
 }
 
 // Testing validation on fields
-func TestFieldValidate(t *testing.T) {
+func TestFieldValidateRequired(t *testing.T) {
 	req := &Required{
 		Err: "This field is required",
 	}
@@ -76,8 +76,25 @@ func TestFieldValidate(t *testing.T) {
 	field := NewField()
 	field.Name = "test"
 	field.Value = ""
-	field.Rules = append(field.Rules, req)
 	field.Type = "text"
+	field.addValidation(req)
+
+	field.validate()
+
+	assert.Equal(t, 1, len(field.Errors))
+}
+
+func TestFieldValidateLength(t *testing.T) {
+	req := &LengthValidation{
+		Err: "This field should be 5 characters",
+		Len: 5,
+	}
+
+	field := NewField()
+	field.Name = "test"
+	field.Value = ""
+	field.Type = "text"
+	field.addValidation(req)
 
 	field.validate()
 

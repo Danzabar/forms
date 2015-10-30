@@ -38,3 +38,25 @@ func TestLengthValidation(t *testing.T) {
 
 	assert.Equal(t, true, val.Valid)
 }
+
+/**
+ *	Benchmarks
+ */
+// Required
+func BenchmarkRequiredValidation(t *testing.B) {
+	val := &Required{
+		Err: "This field is required",
+	}
+
+	val.validate()
+}
+
+// Length
+func BenchmarkLengthValidation(t *testing.B) {
+	val := &LengthValidation{
+		Err: "This field should be 5 characters",
+		Len: 5,
+	}
+
+	val.validate()
+}
