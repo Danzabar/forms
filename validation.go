@@ -2,6 +2,9 @@ package forms
 
 type Validation interface {
 	validate()
+	setValue(val string)
+	getErr() string
+	isValid() bool
 }
 
 // Required Checks whether any value is set
@@ -25,6 +28,18 @@ func (r *Required) validate() {
 	if len(r.Value) > 0 {
 		r.Valid = true
 	}
+}
+
+func (r *Required) setValue(val string) {
+	r.Value = val
+}
+
+func (r Required) getErr() string {
+	return r.Err
+}
+
+func (r Required) isValid() bool {
+	return r.Valid
 }
 
 func (l *LengthValidation) validate() {

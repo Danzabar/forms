@@ -49,6 +49,18 @@ func (f *Field) addError(err string) {
 	f.Errors = append(f.Errors, err)
 }
 
+// Runs all the validation associated with this field
+func (f *Field) validate() {
+	for _, rule := range f.Rules {
+		rule.setValue(f.Value)
+		rule.validate()
+
+		if !rule.isValid() {
+			f.addError(rule.getErr())
+		}
+	}
+}
+
 // Returns the label for a field
 func (f Field) label() string {
 	return fmt.Sprintf("<label for=\"%s\">%s</label>", f.Name, f.Label)
