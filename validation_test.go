@@ -39,6 +39,24 @@ func TestLengthValidation(t *testing.T) {
 	assert.Equal(t, true, val.Valid)
 }
 
+// Tests the regex validation
+func TestRegexValidation(t *testing.T) {
+	val := &RegexValidation{
+		Err:   "Test error",
+		Regex: "^([A-Z])$",
+	}
+
+	val.Value = "test"
+	val.validate()
+
+	assert.Equal(t, false, val.Valid)
+
+	val.Value = "B"
+	val.validate()
+
+	assert.Equal(t, true, val.Valid)
+}
+
 /**
  *	Benchmarks
  */
@@ -56,6 +74,16 @@ func BenchmarkLengthValidation(t *testing.B) {
 	val := &LengthValidation{
 		Err: "This field should be 5 characters",
 		Len: 5,
+	}
+
+	val.validate()
+}
+
+// Regex
+func BenchmarkRegexValidation(t *testing.B) {
+	val := &RegexValidation{
+		Err:   "Regex err",
+		Regex: "^([A-Z]{3}[a-z]{1})$",
 	}
 
 	val.validate()

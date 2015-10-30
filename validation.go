@@ -1,5 +1,9 @@
 package forms
 
+import (
+	"regexp"
+)
+
 type Validation interface {
 	validate()
 	setValue(val string)
@@ -20,6 +24,14 @@ type LengthValidation struct {
 	Err   string
 	Valid bool
 	Len   int
+}
+
+// Custom Regex validation
+type RegexValidation struct {
+	Value string
+	Err   string
+	Valid bool
+	Regex string
 }
 
 // Methods for the Required validation struct
@@ -60,4 +72,22 @@ func (l LengthValidation) getErr() string {
 
 func (l LengthValidation) isValid() bool {
 	return l.Valid
+}
+
+// Methods for the Regex Validation struct
+func (r *RegexValidation) validate() {
+	match, _ := regexp.MatchString(r.Regex, r.Value)
+	r.Valid = match
+}
+
+func (r *RegexValidation) setValue(val string) {
+	r.Value = val
+}
+
+func (r RegexValidation) getErr() string {
+	return r.Err
+}
+
+func (r RegexValidation) isValid() bool {
+	return r.Valid
 }
