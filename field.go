@@ -2,6 +2,7 @@ package forms
 
 import (
 	"fmt"
+	"strings"
 )
 
 type Field struct {
@@ -39,6 +40,8 @@ func (f Field) output() string {
 	case "radio":
 	case "checkbox":
 		return f.outputBox()
+	case "select":
+		return f.outputSelect()
 	}
 
 	return f.outputText()
@@ -81,4 +84,15 @@ func (f Field) outputTextArea() string {
 // Will be some difference once request form values are added
 func (f Field) outputBox() string {
 	return fmt.Sprintf("<input type=\"%[1]s\" name=\"%[2]s\" id=\"%[2]s\" value=\"%[3]s\" />", f.Type, f.Name, f.Value)
+}
+
+// Returns the string representation of a select box
+func (f Field) outputSelect() string {
+	var options []string
+
+	for _, val := range f.Values {
+		options = append(options, fmt.Sprintf("<option value=\"%[1]s\">%[1]s</option>", val))
+	}
+
+	return fmt.Sprintf("<select name=\"%[1]s\" id=\"%[1]s\">%[2]s</select>", f.Name, strings.Join(options, ""))
 }

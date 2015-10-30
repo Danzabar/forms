@@ -38,6 +38,18 @@ func TestFieldOutputTextArea(t *testing.T) {
 	assert.Equal(t, "<textarea name=\"foo\" id=\"foo\"></textarea>", tag)
 }
 
+// Testing the output of a select field
+func TestFieldOutputSelect(t *testing.T) {
+	field := NewField()
+	field.Name = "foo"
+	field.Type = "select"
+	field.Values = []string{"test"}
+
+	tag := field.output()
+
+	assert.Equal(t, "<select name=\"foo\" id=\"foo\"><option value=\"test\">test</option></select>", tag)
+}
+
 // Testing the output of a label
 func TestFieldOutputLabel(t *testing.T) {
 	field := NewField()
