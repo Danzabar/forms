@@ -18,7 +18,7 @@ type Field struct {
 	// A list of values to use for multi-value inputs
 	Values []string
 	// A list of validation items to add to this field
-	Rules []string
+	Rules []Validation
 	// A list of errors on this field
 	Errors []string
 }
@@ -69,13 +69,4 @@ func (f Field) outputTextArea() string {
 // Will be some difference once request form values are added
 func (f Field) outputBox() string {
 	return fmt.Sprintf("<input type=\"%[1]s\" name=\"%[2]s\" id=\"%[2]s\" value=\"%[3]s\" />", f.Type, f.Name, f.Value)
-}
-
-// Checks the field value to make sure something is set
-func (f *Field) validateRequired() bool {
-	if len(f.Value) == 0 {
-		f.addError("This field is required")
-		return false
-	}
-	return true
 }

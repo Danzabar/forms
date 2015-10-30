@@ -54,16 +54,3 @@ func TestFieldAddError(t *testing.T) {
 
 	assert.Equal(t, 1, len(field.Errors))
 }
-
-// Testing the required validation rule
-func TestFieldValidationRequired(t *testing.T) {
-	field := NewField()
-	field.Value = "test"
-
-	assert.Equal(t, true, field.validateRequired())
-
-	field.Value = ""
-
-	assert.Equal(t, false, field.validateRequired())
-	assert.Equal(t, 1, len(field.Errors))
-}
