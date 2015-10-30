@@ -10,12 +10,12 @@ import (
 // The test suite struct
 type FormTestSuite struct {
 	suite.Suite
-	Request *http.Request
+	Request http.Request
 }
 
 // Set up test env
 func (suite *FormTestSuite) SetupTest() {
-	suite.Request = &http.Request{
+	suite.Request = http.Request{
 		Method: "POST",
 	}
 }

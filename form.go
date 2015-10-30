@@ -17,10 +17,10 @@ type Form struct {
 	// A list of fields
 	Fields []*Field
 	// The current request
-	Request *http.Request
+	Request http.Request
 }
 
-func NewForm(r *http.Request) *Form {
+func NewForm(r http.Request) *Form {
 	return &Form{
 		Name:        "Form",
 		Description: "",
