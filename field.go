@@ -16,6 +16,8 @@ type Field struct {
 	Default string
 	// The actual value
 	Value string
+	// Boolean flag for when a field has errors or not
+	Valid bool
 	// A list of values to use for multi-value inputs
 	Values []string
 	// A list of validation items to add to this field
@@ -59,12 +61,14 @@ func (f *Field) addValidation(validation Validation) {
 
 // Runs all the validation associated with this field
 func (f *Field) validate() {
+	f.Valid = true
 	for _, rule := range f.Rules {
 		rule.setValue(f.Value)
 		rule.validate()
 
 		if !rule.isValid() {
 			f.addError(rule.getErr())
+			f.Valid = false
 		}
 	}
 }

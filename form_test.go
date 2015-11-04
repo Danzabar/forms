@@ -74,6 +74,30 @@ func (suite *FormTestSuite) TestAddFieldWithValue() {
 	assert.Equal(suite.T(), "value", field.Value)
 }
 
+func (suite *FormTestSuite) TestValidateAllFields() {
+
+	req := http.Request{
+		Method: "POST",
+		Body:   ioutil.NopCloser(strings.NewReader("field1=test")),
+		Header: http.Header{"Content-Type": {"application/x-www-form-urlencoded;"}},
+	}
+
+	form := NewForm(req)
+	form.Action = "/test/uri"
+	form.Method = "POST"
+
+	field := &Field{
+		Name:  "field1",
+		Label: "Field",
+		Type:  "text",
+	}
+
+	form.addField(field)
+	valid := form.validate()
+
+	assert.Equal(suite.T(), true, valid)
+}
+
 func TestRunnerTestSuite(t *testing.T) {
 	suite.Run(t, new(FormTestSuite))
 }

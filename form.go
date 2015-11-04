@@ -18,6 +18,8 @@ type Form struct {
 	Fields []*Field
 	// The current request
 	Request http.Request
+	// Boolean flag whether form is valid or not
+	Valid bool
 }
 
 // Creates the form struct
@@ -28,6 +30,7 @@ func NewForm(r http.Request) *Form {
 		Action:      "",
 		Method:      "POST",
 		Request:     r,
+		Valid:       false,
 	}
 }
 
@@ -48,4 +51,18 @@ func (f Form) open() string {
 // Returns the form close tags
 func (f Form) close() string {
 	return fmt.Sprintf("</form>")
+}
+
+// Method to validate the whole form
+func (f *Form) validate() bool {
+	f.Valid = true
+	for _, field := range f.Fields {
+		field.validate()
+
+		if !field.Valid {
+			f.Valid = false
+		}
+	}
+
+	return f.Valid
 }
