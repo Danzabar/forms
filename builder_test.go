@@ -7,6 +7,8 @@ import (
 	"testing"
 )
 
+var request http.Request
+
 // Test suite
 type BuilderTestSuite struct {
 	suite.Suite
@@ -38,4 +40,11 @@ func (suite *BuilderTestSuite) TestBuildingForm() {
 // Test runner
 func BuilderTestRunnerTestSuite(t *testing.T) {
 	suite.Run(t, new(BuilderTestSuite))
+}
+
+// Build benchmark
+func BenchmarkBuildFormFromConfig(t *testing.B) {
+	b := NewBuilder("example.yml", request)
+
+	b.build()
 }
