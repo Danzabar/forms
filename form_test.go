@@ -74,6 +74,7 @@ func (suite *FormTestSuite) TestAddFieldWithValue() {
 	assert.Equal(suite.T(), "value", field.Value)
 }
 
+// Testing a successful validation
 func (suite *FormTestSuite) TestValidateAllFields() {
 
 	req := http.Request{
@@ -96,6 +97,30 @@ func (suite *FormTestSuite) TestValidateAllFields() {
 	valid := form.validate()
 
 	assert.Equal(suite.T(), true, valid)
+}
+
+// Testing a validation with errors
+func (suite *FormTestSuite) TestValidateAllFieldsFailure() {
+
+	form := NewForm(suite.Request)
+	form.Action = "/test/uri"
+	form.Method = "POST"
+
+	required := &Required{
+		Err: "This field is required",
+	}
+
+	field := &Field{
+		Name:  "foo",
+		Label: "foo",
+		Type:  "text",
+	}
+
+	field.addValidation(required)
+	form.addField(field)
+	valid := form.validate()
+
+	assert.Equal(suite.T(), false, valid)
 }
 
 func TestRunnerTestSuite(t *testing.T) {

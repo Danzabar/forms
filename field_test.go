@@ -100,3 +100,19 @@ func TestFieldValidateLength(t *testing.T) {
 
 	assert.Equal(t, 1, len(field.Errors))
 }
+
+func TestFieldValidationRequired(t *testing.T) {
+	req := &RegexValidation{
+		Err:   "An error",
+		Regex: "^([A-Z])$",
+	}
+
+	field := NewField()
+	field.Name = "test"
+	field.Value = "test"
+	field.addValidation(req)
+
+	field.validate()
+
+	assert.Equal(t, 1, len(field.Errors))
+}
