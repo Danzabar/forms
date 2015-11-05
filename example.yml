@@ -2,3 +2,13 @@ Name: Test
 Description: Test
 Action: test
 Method: POST
+Fields:
+    - Name: test
+      Label: Test
+      Type: text
+      Rules:
+          - required
+    - Name: test2
+      Label: Test2
+      Type: text
+
