@@ -25,6 +25,27 @@ func TestBuildingForm(t *testing.T) {
 	assert.Equal(t, 4, len(b.Form.Fields))
 }
 
+// Testing that validation items are actually created
+func TestValidationItems(t *testing.T) {
+	b := NewBuilder("example.yml", request)
+	b.build()
+
+	for _, field := range b.Form.Fields {
+		switch field.Name {
+		case "test":
+			assert.Equal(t, 1, len(field.Rules))
+		case "test2":
+			assert.Equal(t, 1, len(field.Rules))
+		case "test3":
+			assert.Equal(t, 2, len(field.Rules))
+		}
+	}
+
+	b.Form.validate()
+
+	assert.Equal(t, false, b.Form.Valid)
+}
+
 // Test building a form with pre-defined values
 func TestBuildPreValues(t *testing.T) {
 	r := http.Request{
