@@ -24,6 +24,8 @@ type Field struct {
 	Rules []Validation
 	// A list of errors on this field
 	Errors []string
+	// A Map of properties to add to the field output
+	Props map[string]string
 }
 
 // Creates a new field struct
@@ -104,4 +106,12 @@ func (f Field) outputSelect() string {
 	}
 
 	return fmt.Sprintf("<select name=\"%[1]s\" id=\"%[1]s\">%[2]s</select>", f.Name, strings.Join(options, ""))
+}
+
+// Returns a string representation of the classes property
+func (f Field) getHtmlProperties() (html string) {
+	for key, val := range f.Props {
+		html += fmt.Sprintf("%s=\"%s\" ", key, val)
+	}
+	return
 }

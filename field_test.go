@@ -116,3 +116,17 @@ func TestFieldValidationRequired(t *testing.T) {
 
 	assert.Equal(t, 1, len(field.Errors))
 }
+
+// Testing class output
+func TestAddingHtmlProperties(t *testing.T) {
+	m := make(map[string]string)
+	m["class"] = "testclass"
+	m["data-id"] = "3"
+
+	field := NewField()
+	field.Props = m
+
+	prop := field.getHtmlProperties()
+
+	assert.Equal(t, "class=\"testclass\" data-id=\"3\" ", prop)
+}
