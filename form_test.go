@@ -123,6 +123,21 @@ func (suite *FormTestSuite) TestValidateAllFieldsFailure() {
 	assert.Equal(suite.T(), false, valid)
 }
 
+// Testing output of html props
+func (suite *FormTestSuite) TestPropertyOutput() {
+	m := make(map[string]string)
+	m["class"] = "testclass"
+	m["id"] = "form"
+
+	form := NewForm(suite.Request)
+	form.Props = m
+
+	html := form.getFormHtmlProperties()
+
+	assert.Equal(suite.T(), true, strings.ContainsAny(html, "class=\"testclass\""))
+	assert.Equal(suite.T(), true, strings.ContainsAny(html, "id=\"form\""))
+}
+
 func TestRunnerTestSuite(t *testing.T) {
 	suite.Run(t, new(FormTestSuite))
 }

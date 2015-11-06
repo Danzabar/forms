@@ -18,6 +18,8 @@ type Form struct {
 	Fields []*Field
 	// The current request
 	Request http.Request
+	// Html Property map
+	Props map[string]string
 	// Boolean flag whether form is valid or not
 	Valid bool
 }
@@ -65,4 +67,12 @@ func (f *Form) validate() bool {
 	}
 
 	return f.Valid
+}
+
+// Method to output html properties from the props var
+func (f Form) getFormHtmlProperties() (html string) {
+	for key, val := range f.Props {
+		html += fmt.Sprintf("%s=\"%s\" ", key, val)
+	}
+	return
 }

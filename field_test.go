@@ -2,6 +2,7 @@ package forms
 
 import (
 	"github.com/stretchr/testify/assert"
+	"strings"
 	"testing"
 )
 
@@ -128,5 +129,6 @@ func TestAddingHtmlProperties(t *testing.T) {
 
 	prop := field.getHtmlProperties()
 
-	assert.Equal(t, "class=\"testclass\" data-id=\"3\" ", prop)
+	assert.Equal(t, true, strings.ContainsAny(prop, "class=\"testclass\""))
+	assert.Equal(t, true, strings.ContainsAny(prop, "data-id=\"3\""))
 }
