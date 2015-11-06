@@ -20,7 +20,7 @@ func TestBuildingForm(t *testing.T) {
 	b := NewBuilder("example.yml", request)
 
 	b.build()
-	assert.Equal(t, 2, len(b.Form.Fields))
+	assert.Equal(t, 4, len(b.Form.Fields))
 }
 
 // Build benchmark

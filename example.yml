@@ -7,8 +7,23 @@ Fields:
       Label: Test
       Type: text
       Rules:
-          - required
+         - { Type: Required, Err: This value is required }
     - Name: test2
       Label: Test2
+      Type: text
+      Rules:
+          - { Type: Regex, Err: A test error, Regex: '^([A-Z])$' }
+    - Name: test3
+      Label: Test3
+      Type: select
+      Values:
+          - test1
+          - test2
+          - test3
+      Rules:
+          - { Type: Required, Err: This field is required }
+          - { Type: Length, Err: Expected to be 4 characters, Length: 4}
+    - Name: test4
+      Label: Test4
       Type: text
 

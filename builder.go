@@ -30,12 +30,20 @@ type Config struct {
 
 // The YAML config struct for a field
 type ConfigField struct {
-	Name    string   `yaml:"Name"`
-	Label   string   `yaml:"Label"`
-	Type    string   `yaml:"Type"`
-	Default string   `yaml:"Default"`
-	Values  []string `yaml:"Values"`
-	Rules   []string `yaml:"Rules"`
+	Name    string       `yaml:"Name"`
+	Label   string       `yaml:"Label"`
+	Type    string       `yaml:"Type"`
+	Default string       `yaml:"Default"`
+	Values  []string     `yaml:"Values"`
+	Rules   []ConfigRule `yaml:"Rules"`
+}
+
+// The validation struct
+type ConfigRule struct {
+	Type   string `yaml:"Type"`
+	Err    string `yaml:"Err"`
+	Regex  string `yaml:"Regex"`
+	Length int    `yaml:"Length"`
 }
 
 // Creates a new form builder and runs the extract method
@@ -82,6 +90,36 @@ func (b *Builder) build() {
 			Values:  field.Values,
 		}
 
+		// Create validation items
+		createValidationItems(field.Rules, f)
+
 		b.Form.addField(f)
+	}
+}
+
+// Loops through rules and returns a list of validation rules
+func createValidationItems(rules []ConfigRule, f *Field) {
+	for _, rule := range rules {
+
+		var r Validation
+
+		switch rule.Type {
+		case "Required":
+			r = &Required{
+				Err: rule.Err,
+			}
+		case "Regex":
+			r = &RegexValidation{
+				Err:   rule.Err,
+				Regex: rule.Regex,
+			}
+		case "Length":
+			r = &LengthValidation{
+				Err: rule.Err,
+				Len: rule.Length,
+			}
+		}
+
+		f.addValidation(r)
 	}
 }
