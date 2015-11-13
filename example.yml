@@ -2,6 +2,7 @@ Name: Test
 Description: Test
 Action: test
 Method: POST
+Props: { class: test, data-id: test }
 Fields:
     - Name: test
       Label: Test

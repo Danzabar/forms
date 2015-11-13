@@ -46,6 +46,14 @@ func TestValidationItems(t *testing.T) {
 	assert.Equal(t, false, b.Form.Valid)
 }
 
+// Testing that props are set
+func TestPropsSet(t *testing.T) {
+	b := NewBuilder("example.yml", request)
+	b.build()
+
+	assert.Equal(t, 2, len(b.Form.Props))
+}
+
 // Test building a form with pre-defined values
 func TestBuildPreValues(t *testing.T) {
 	r := http.Request{

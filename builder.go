@@ -21,21 +21,23 @@ type Builder struct {
 
 // The YAML config struct
 type Config struct {
-	Name        string        `yaml:"Name"`
-	Description string        `yaml:"Description"`
-	Action      string        `yaml:"Action"`
-	Method      string        `yaml:"Method"`
-	Fields      []ConfigField `yaml:"Fields"`
+	Name        string            `yaml:"Name"`
+	Description string            `yaml:"Description"`
+	Action      string            `yaml:"Action"`
+	Method      string            `yaml:"Method"`
+	Props       map[string]string `yaml:"Props"`
+	Fields      []ConfigField     `yaml:"Fields"`
 }
 
 // The YAML config struct for a field
 type ConfigField struct {
-	Name    string       `yaml:"Name"`
-	Label   string       `yaml:"Label"`
-	Type    string       `yaml:"Type"`
-	Default string       `yaml:"Default"`
-	Values  []string     `yaml:"Values"`
-	Rules   []ConfigRule `yaml:"Rules"`
+	Name    string            `yaml:"Name"`
+	Label   string            `yaml:"Label"`
+	Type    string            `yaml:"Type"`
+	Default string            `yaml:"Default"`
+	Props   map[string]string `yaml:"Props"`
+	Values  []string          `yaml:"Values"`
+	Rules   []ConfigRule      `yaml:"Rules"`
 }
 
 // The validation struct
@@ -78,6 +80,7 @@ func (b *Builder) build() {
 	b.Form.Name = b.Config.Name
 	b.Form.Description = b.Config.Description
 	b.Form.Action = b.Config.Action
+	b.Form.Props = b.Config.Props
 	b.Form.Method = b.Config.Method
 
 	// Now we can add fields
@@ -86,6 +89,7 @@ func (b *Builder) build() {
 			Name:    field.Name,
 			Label:   field.Label,
 			Type:    field.Type,
+			Props:   field.Props,
 			Default: field.Default,
 			Values:  field.Values,
 		}
