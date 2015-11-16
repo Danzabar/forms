@@ -54,6 +54,18 @@ func TestPropsSet(t *testing.T) {
 	assert.Equal(t, 2, len(b.Form.Props))
 }
 
+// Testing that props are set on field level
+func TestPropsSetFields(t *testing.T) {
+	b := NewBuilder("example.yml", request)
+	b.build()
+
+	for _, field := range b.Form.Fields {
+		if field.Name == "test" {
+			assert.Equal(t, 1, len(field.Props))
+		}
+	}
+}
+
 // Test building a form with pre-defined values
 func TestBuildPreValues(t *testing.T) {
 	r := http.Request{

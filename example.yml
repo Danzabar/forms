@@ -2,11 +2,15 @@ Name: Test
 Description: Test
 Action: test
 Method: POST
-Props: { class: test, data-id: test }
+Props:
+    class: test
+    data-id: test
 Fields:
     - Name: test
       Label: Test
       Type: text
+      Props:
+          class: field
       Rules:
          - { Type: Required, Err: This value is required }
     - Name: test2
@@ -27,4 +31,3 @@ Fields:
     - Name: test4
       Label: Test4
       Type: text
-
